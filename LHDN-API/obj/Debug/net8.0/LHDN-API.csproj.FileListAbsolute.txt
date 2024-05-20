@@ -1,0 +1,13 @@
+C:\Users\Nazihah\source\repos\LHDN-API\LHDN-API\bin\Debug\net8.0\LHDN-API.dll.config
+C:\Users\Nazihah\source\repos\LHDN-API\LHDN-API\bin\Debug\net8.0\LHDN-API.deps.json
+C:\Users\Nazihah\source\repos\LHDN-API\LHDN-API\bin\Debug\net8.0\LHDN-API.dll
+C:\Users\Nazihah\source\repos\LHDN-API\LHDN-API\bin\Debug\net8.0\LHDN-API.pdb
+C:\Users\Nazihah\source\repos\LHDN-API\LHDN-API\obj\Debug\net8.0\LHDN-API.csproj.AssemblyReference.cache
+C:\Users\Nazihah\source\repos\LHDN-API\LHDN-API\obj\Debug\net8.0\LHDN-API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Nazihah\source\repos\LHDN-API\LHDN-API\obj\Debug\net8.0\LHDN-API.AssemblyInfoInputs.cache
+C:\Users\Nazihah\source\repos\LHDN-API\LHDN-API\obj\Debug\net8.0\LHDN-API.AssemblyInfo.cs
+C:\Users\Nazihah\source\repos\LHDN-API\LHDN-API\obj\Debug\net8.0\LHDN-API.csproj.CoreCompileInputs.cache
+C:\Users\Nazihah\source\repos\LHDN-API\LHDN-API\obj\Debug\net8.0\LHDN-API.dll
+C:\Users\Nazihah\source\repos\LHDN-API\LHDN-API\obj\Debug\net8.0\refint\LHDN-API.dll
+C:\Users\Nazihah\source\repos\LHDN-API\LHDN-API\obj\Debug\net8.0\LHDN-API.pdb
+C:\Users\Nazihah\source\repos\LHDN-API\LHDN-API\obj\Debug\net8.0\ref\LHDN-API.dll

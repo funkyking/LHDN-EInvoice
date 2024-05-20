@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "9er+F1z4JsHhWYJorMdprmz9D2lhmde/o0uOfYz59gHRA7hXWMCmtexwxUWMZoDgjbTM64+4SRb1VJWAYWxjUg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Nazihah\\source\\repos\\LHDN-API\\LHDN-API\\LHDN-API.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Nazihah\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
