@@ -1,0 +1,68 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LHDN-API", "LHDN-API\LHDN-API.csproj", "{3AA6CA2A-332A-4BB6-99ED-FCBEDB660085}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthAPI", "D:\Work\MYOB\Development\MY_v30_0\LK_Premier_MY\AuthAPI\AuthAPI.csproj", "{062028F8-25D4-494E-A863-65B50B470B28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiClient", "WebApiClient\WebApiClient.csproj", "{34EE6BAC-AD19-4AE6-8586-53312B2E416A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3AA6CA2A-332A-4BB6-99ED-FCBEDB660085} = {3AA6CA2A-332A-4BB6-99ED-FCBEDB660085}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		AuthAPI Debug|Any CPU = AuthAPI Debug|Any CPU
+		AuthAPI|Any CPU = AuthAPI|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		HK Core Dbg|Any CPU = HK Core Dbg|Any CPU
+		HK Main Prem+ Dbg|Any CPU = HK Main Prem+ Dbg|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3AA6CA2A-332A-4BB6-99ED-FCBEDB660085}.AuthAPI Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AA6CA2A-332A-4BB6-99ED-FCBEDB660085}.AuthAPI Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AA6CA2A-332A-4BB6-99ED-FCBEDB660085}.AuthAPI|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AA6CA2A-332A-4BB6-99ED-FCBEDB660085}.AuthAPI|Any CPU.Build.0 = Debug|Any CPU
+		{3AA6CA2A-332A-4BB6-99ED-FCBEDB660085}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AA6CA2A-332A-4BB6-99ED-FCBEDB660085}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AA6CA2A-332A-4BB6-99ED-FCBEDB660085}.HK Core Dbg|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AA6CA2A-332A-4BB6-99ED-FCBEDB660085}.HK Core Dbg|Any CPU.Build.0 = Debug|Any CPU
+		{3AA6CA2A-332A-4BB6-99ED-FCBEDB660085}.HK Main Prem+ Dbg|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AA6CA2A-332A-4BB6-99ED-FCBEDB660085}.HK Main Prem+ Dbg|Any CPU.Build.0 = Debug|Any CPU
+		{3AA6CA2A-332A-4BB6-99ED-FCBEDB660085}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AA6CA2A-332A-4BB6-99ED-FCBEDB660085}.Release|Any CPU.Build.0 = Release|Any CPU
+		{062028F8-25D4-494E-A863-65B50B470B28}.AuthAPI Debug|Any CPU.ActiveCfg = AuthAPI Debug|Any CPU
+		{062028F8-25D4-494E-A863-65B50B470B28}.AuthAPI Debug|Any CPU.Build.0 = AuthAPI Debug|Any CPU
+		{062028F8-25D4-494E-A863-65B50B470B28}.AuthAPI|Any CPU.ActiveCfg = AuthAPI|Any CPU
+		{062028F8-25D4-494E-A863-65B50B470B28}.AuthAPI|Any CPU.Build.0 = AuthAPI|Any CPU
+		{062028F8-25D4-494E-A863-65B50B470B28}.Debug|Any CPU.ActiveCfg = AuthAPI Debug|Any CPU
+		{062028F8-25D4-494E-A863-65B50B470B28}.Debug|Any CPU.Build.0 = AuthAPI Debug|Any CPU
+		{062028F8-25D4-494E-A863-65B50B470B28}.HK Core Dbg|Any CPU.ActiveCfg = HK Core Dbg|Any CPU
+		{062028F8-25D4-494E-A863-65B50B470B28}.HK Core Dbg|Any CPU.Build.0 = HK Core Dbg|Any CPU
+		{062028F8-25D4-494E-A863-65B50B470B28}.HK Main Prem+ Dbg|Any CPU.ActiveCfg = HK Main Prem+ Dbg|Any CPU
+		{062028F8-25D4-494E-A863-65B50B470B28}.HK Main Prem+ Dbg|Any CPU.Build.0 = HK Main Prem+ Dbg|Any CPU
+		{062028F8-25D4-494E-A863-65B50B470B28}.Release|Any CPU.ActiveCfg = AuthAPI Debug|Any CPU
+		{062028F8-25D4-494E-A863-65B50B470B28}.Release|Any CPU.Build.0 = AuthAPI Debug|Any CPU
+		{34EE6BAC-AD19-4AE6-8586-53312B2E416A}.AuthAPI Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34EE6BAC-AD19-4AE6-8586-53312B2E416A}.AuthAPI Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34EE6BAC-AD19-4AE6-8586-53312B2E416A}.AuthAPI|Any CPU.ActiveCfg = Debug|Any CPU
+		{34EE6BAC-AD19-4AE6-8586-53312B2E416A}.AuthAPI|Any CPU.Build.0 = Debug|Any CPU
+		{34EE6BAC-AD19-4AE6-8586-53312B2E416A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34EE6BAC-AD19-4AE6-8586-53312B2E416A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34EE6BAC-AD19-4AE6-8586-53312B2E416A}.HK Core Dbg|Any CPU.ActiveCfg = Debug|Any CPU
+		{34EE6BAC-AD19-4AE6-8586-53312B2E416A}.HK Core Dbg|Any CPU.Build.0 = Debug|Any CPU
+		{34EE6BAC-AD19-4AE6-8586-53312B2E416A}.HK Main Prem+ Dbg|Any CPU.ActiveCfg = Debug|Any CPU
+		{34EE6BAC-AD19-4AE6-8586-53312B2E416A}.HK Main Prem+ Dbg|Any CPU.Build.0 = Debug|Any CPU
+		{34EE6BAC-AD19-4AE6-8586-53312B2E416A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34EE6BAC-AD19-4AE6-8586-53312B2E416A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9E1A32F0-86BE-477D-973C-CA368855EDD2}
+	EndGlobalSection
+EndGlobal
