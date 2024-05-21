@@ -13,6 +13,34 @@ namespace WebApiClient.Models
     #region [ Global Declaration ]
 
     [StructLayout(LayoutKind.Sequential)]
+    public struct DocumentTypes
+    {
+        [JsonProperty(PropertyName = "id")]
+        [MarshalAs(UnmanagedType.I4)]
+        public int Id;
+
+        [JsonProperty(PropertyName = "invoiceTypeCode")]
+        [MarshalAs(UnmanagedType.I4)]
+        public int Invoice_Type_Code;
+
+        [JsonProperty(PropertyName = "description")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Description;
+
+        [JsonProperty(PropertyName = "activeFrom")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Active_From;
+
+        [JsonProperty(PropertyName = "activeTo")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Active_To;
+
+        [JsonProperty(PropertyName = "documentTypeVersions")]
+        public DocTypeVersionSummary[] Document_Type_Versions;
+
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
     public struct DocTypeVersionSummary
     {
         [JsonProperty(PropertyName = "id")]
@@ -147,20 +175,7 @@ namespace WebApiClient.Models
         public int Total_Count;
 
     }
-
-    [StructLayout(LayoutKind.Sequential)]
-    public struct Error_Resp
-    {
-        [JsonProperty(PropertyName = "code")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Code;
-
-        [JsonProperty(PropertyName = "message")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Message;
-
-    }
-
+    
     [StructLayout(LayoutKind.Sequential)]
     public struct Document
     {
@@ -295,6 +310,203 @@ namespace WebApiClient.Models
     }
 
     [StructLayout(LayoutKind.Sequential)]
+    public struct DocumentDetails
+    {
+        [JsonProperty(PropertyName = "uuid")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Uuid;
+
+        [JsonProperty(PropertyName = "submissionUid")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Submission_Uid;
+
+        [JsonProperty(PropertyName = "longId")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Long_Id;
+
+        [JsonProperty(PropertyName = "internalId")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Internal_Id;
+
+        [JsonProperty(PropertyName = "typeName")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Type_Name;
+
+        [JsonProperty(PropertyName = "typeVersionName")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Type_Version_Name;
+
+        [JsonProperty(PropertyName = "issuerTin")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Issuer_Tin;
+
+        [JsonProperty(PropertyName = "issuerName")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Issuer_Name;
+
+        [JsonProperty(PropertyName = "receiverId")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Receiver_Id;
+
+        [JsonProperty(PropertyName = "receiverName")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Receiver_Name;
+
+        [JsonProperty(PropertyName = "dateTimeIssued")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Datetime_Issued;
+
+        [JsonProperty(PropertyName = "dateTimeReceived")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Datetime_Received;
+
+        [JsonProperty(PropertyName = "dateTimeValidated")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Datetime_Validated;
+
+        [JsonProperty(PropertyName = "totalSales")]
+        public double Total_Sales;
+
+        [JsonProperty(PropertyName = "totalDiscount")]
+        public double Total_Discount;
+
+        [JsonProperty(PropertyName = "netAmount")]
+        public double Net_Amt;
+
+        [JsonProperty(PropertyName = "total")]
+        public double Total;
+
+        [JsonProperty(PropertyName = "status")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Status;
+
+        [JsonProperty(PropertyName = "cancelDateTime")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Cancel_Datetime;
+
+        [JsonProperty(PropertyName = "rejectRequestDateTime")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Reject_Req_Datetime;
+
+        [JsonProperty(PropertyName = "documentStatusReason")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Doc_Status_Reason;
+
+        [JsonProperty(PropertyName = "createdByUserId")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string CreatedBy_UserId;
+
+        [JsonProperty(PropertyName = "validationResults")]
+        public Doc_Validation_Results Validation_Results;
+
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct SearchDocument
+    {
+        [JsonProperty(PropertyName = "uuid")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Uuid;
+
+        [JsonProperty(PropertyName = "submissionUID")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Submission_Uid;
+
+        [JsonProperty(PropertyName = "longId")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Long_Id;
+
+        [JsonProperty(PropertyName = "internalId")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Internal_Id;
+
+        [JsonProperty(PropertyName = "typeName")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Type_Name;
+
+        [JsonProperty(PropertyName = "typeVersionName")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Type_Version_Name;
+
+        [JsonProperty(PropertyName = "issuerTin")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Issuer_Tin;
+
+        [JsonProperty(PropertyName = "issuerName")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Issuer_Name;
+
+        [JsonProperty(PropertyName = "receiverId")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Receiver_Id;
+
+        [JsonProperty(PropertyName = "receiverIdType")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Receiver_Id_Type;
+
+        [JsonProperty(PropertyName = "receiverName")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Receiver_Name;
+
+        [JsonProperty(PropertyName = "dateTimeIssued")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Datetime_Issued;
+
+        [JsonProperty(PropertyName = "dateTimeReceived")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Datetime_Received;
+
+        [JsonProperty(PropertyName = "dateTimeValidated")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Datetime_Validated;
+
+        [JsonProperty(PropertyName = "totalSales")]
+        public double Total_Sales;
+
+        [JsonProperty(PropertyName = "totalDiscount")]
+        public double Total_Discount;
+
+        [JsonProperty(PropertyName = "netAmount")]
+        public double Net_Amt;
+
+        [JsonProperty(PropertyName = "total")]
+        public double Total;
+
+        [JsonProperty(PropertyName = "totalOriginalSales")]
+        public double Total_Ori_Sales;
+
+        [JsonProperty(PropertyName = "totalOriginalDiscount")]
+        public double Total_Ori_Disc;
+
+        [JsonProperty(PropertyName = "netOriginalAmount")]
+        public double Net_Ori_Amt;
+
+        [JsonProperty(PropertyName = "totalOriginal")]
+        public double Total_Ori;
+
+        [JsonProperty(PropertyName = "status")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Status;
+
+        [JsonProperty(PropertyName = "cancelDateTime")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Cancel_Datetime;
+
+        [JsonProperty(PropertyName = "rejectRequestDateTime")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Reject_Req_Datetime;
+
+        [JsonProperty(PropertyName = "documentStatusReason")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Doc_Status_Reason;
+
+        [JsonProperty(PropertyName = "createdByUserId")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string CreatedBy_UserId;
+
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
     public struct Validation_Step_Result
     {
         [JsonProperty(PropertyName = "name")]
@@ -307,6 +519,26 @@ namespace WebApiClient.Models
 
         [JsonProperty(PropertyName = "error")]
         public Error_Resp Error;
+
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct Error_Resp
+    {
+        [JsonProperty(PropertyName = "code")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Code;
+
+        [JsonProperty(PropertyName = "message")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Message;
+
+        [JsonProperty(PropertyName = "propertyPath")]
+        [MarshalAs(UnmanagedType.BStr)]
+        public string Property_Path;
+
+        [JsonProperty(PropertyName = "details")]
+        public Error_Resp[] Details;
 
     }
 
@@ -366,14 +598,6 @@ namespace WebApiClient.Models
         [MarshalAs(UnmanagedType.BStr)]
         public string Scope;
 
-        [JsonProperty(PropertyName = "statusCode")]
-        [MarshalAs(UnmanagedType.I4)]
-        public string Status_Code;
-
-        [JsonProperty(PropertyName = "message")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Message;
-
     }
 
     #endregion
@@ -387,28 +611,8 @@ namespace WebApiClient.Models
     [StructLayout(LayoutKind.Sequential)]
     public struct GetAllDocTypes_RESP
     {
-        [JsonProperty(PropertyName = "id")]
-        [MarshalAs(UnmanagedType.I4)]
-        public int Id;
-
-        [JsonProperty(PropertyName = "invoiceTypeCode")]
-        [MarshalAs(UnmanagedType.I4)]
-        public int Invoice_Type_Code;
-
-        [JsonProperty(PropertyName = "description")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Description;
-
-        [JsonProperty(PropertyName = "activeFrom")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Active_From;
-
-        [JsonProperty(PropertyName = "activeTo")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Active_To;
-
-        [JsonProperty(PropertyName = "documentTypeVersions")]
-        public DocTypeVersionSummary[] Document_Type_Versions;
+        [JsonProperty(PropertyName = "result")]
+        public DocumentTypes[] result;
 
     }
 
@@ -430,7 +634,7 @@ namespace WebApiClient.Models
 
     #endregion
 
-    #region [ Response ] "
+    #region [ Response ]
 
     [StructLayout(LayoutKind.Sequential)]
     public struct GetDocType_RESP
@@ -486,7 +690,7 @@ namespace WebApiClient.Models
 
     #endregion
 
-    #region [ Response ] "
+    #region [ Response ]
 
     [StructLayout(LayoutKind.Sequential)]
     public struct GetDocTypeVersion_RESP
@@ -579,7 +783,7 @@ namespace WebApiClient.Models
 
     #endregion
 
-    #region [ Response ] "
+    #region [ Response ]
 
     [StructLayout(LayoutKind.Sequential)]
     public struct GetNotifications_RESP
@@ -653,6 +857,7 @@ namespace WebApiClient.Models
 
         [JsonProperty(PropertyName = "rejectedDocuments")]
         public RejectedDocuments[] Rejected_Docs;
+
     }
 
     #endregion
@@ -807,92 +1012,8 @@ namespace WebApiClient.Models
     [StructLayout(LayoutKind.Sequential)]
     public struct GetRecentDocs_RESP
     {
-        [JsonProperty(PropertyName = "uuid")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Uuid;
-
-        [JsonProperty(PropertyName = "submissionUID")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Submission_Uid;
-
-        [JsonProperty(PropertyName = "longId")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Long_Id;
-
-        [JsonProperty(PropertyName = "internalId")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Internal_Id;
-
-        [JsonProperty(PropertyName = "typeName")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Type_Name;
-
-        [JsonProperty(PropertyName = "typeVersionName")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Type_Version_Name;
-
-        [JsonProperty(PropertyName = "issuerTin")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Issuer_Tin;
-
-        [JsonProperty(PropertyName = "issuerName")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Issuer_Name;
-
-        [JsonProperty(PropertyName = "receiverId")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Receiver_Id;
-
-        [JsonProperty(PropertyName = "receiverName")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Receiver_Name;
-
-        [JsonProperty(PropertyName = "dateTimeIssued")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Datetime_Issued;
-
-        [JsonProperty(PropertyName = "dateTimeReceived")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Datetime_Received;
-
-        [JsonProperty(PropertyName = "dateTimeValidated")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Datetime_Validated;
-
-        [JsonProperty(PropertyName = "totalSales")]
-        public double Total_Sales;
-
-        [JsonProperty(PropertyName = "totalDiscount")]
-        public double Total_Discount;
-
-        [JsonProperty(PropertyName = "netAmount")]
-        public double Net_Amt;
-
-        [JsonProperty(PropertyName = "total")]
-        public double Total;
-
-        [JsonProperty(PropertyName = "status")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Status;
-
-        [JsonProperty(PropertyName = "cancelDateTime")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Cancel_Datetime;
-
-        [JsonProperty(PropertyName = "rejectRequestDateTime")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Reject_Req_Datetime;
-
-        [JsonProperty(PropertyName = "documentStatusReason")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Doc_Status_Reason;
-
-        [JsonProperty(PropertyName = "createdByUserId")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string CreatedBy_UserId;
-
-        [JsonProperty(PropertyName = "metadata")]
-        public Metadata Metadata;
+        [JsonProperty(PropertyName = "result")]
+        public Doc_Summary[] Result;
 
     }
 
@@ -1073,92 +1194,8 @@ namespace WebApiClient.Models
     [StructLayout(LayoutKind.Sequential)]
     public struct GetDocumentDtl_RESP
     {
-        [JsonProperty(PropertyName = "uuid")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Uuid;
-
-        [JsonProperty(PropertyName = "submissionUid")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Submission_Uid;
-
-        [JsonProperty(PropertyName = "longId")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Long_Id;
-
-        [JsonProperty(PropertyName = "internalId")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Internal_Id;
-
-        [JsonProperty(PropertyName = "typeName")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Type_Name;
-
-        [JsonProperty(PropertyName = "typeVersionName")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Type_Version_Name;
-
-        [JsonProperty(PropertyName = "issuerTin")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Issuer_Tin;
-
-        [JsonProperty(PropertyName = "issuerName")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Issuer_Name;
-
-        [JsonProperty(PropertyName = "receiverId")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Receiver_Id;
-
-        [JsonProperty(PropertyName = "receiverName")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Receiver_Name;
-
-        [JsonProperty(PropertyName = "dateTimeIssued")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Datetime_Issued;
-
-        [JsonProperty(PropertyName = "dateTimeReceived")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Datetime_Received;
-
-        [JsonProperty(PropertyName = "dateTimeValidated")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Datetime_Validated;
-
-        [JsonProperty(PropertyName = "totalSales")]
-        public double Total_Sales;
-
-        [JsonProperty(PropertyName = "totalDiscount")]
-        public double Total_Discount;
-
-        [JsonProperty(PropertyName = "netAmount")]
-        public double Net_Amt;
-
-        [JsonProperty(PropertyName = "total")]
-        public double Total;
-
-        [JsonProperty(PropertyName = "status")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Status;
-
-        [JsonProperty(PropertyName = "cancelDateTime")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Cancel_Datetime;
-
-        [JsonProperty(PropertyName = "rejectRequestDateTime")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Reject_Req_Datetime;
-
-        [JsonProperty(PropertyName = "documentStatusReason")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Doc_Status_Reason;
-
-        [JsonProperty(PropertyName = "createdByUserId")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string CreatedBy_UserId;
-
-        [JsonProperty(PropertyName = "validationResults")]
-        public Doc_Validation_Results Validation_Results;
+        [JsonProperty(PropertyName = "DocumentDetails")]
+        public DocumentDetails[] DocumentDetails;
 
     }
 
@@ -1223,109 +1260,12 @@ namespace WebApiClient.Models
     [StructLayout(LayoutKind.Sequential)]
     public struct SearchDoc_RESP
     {
-        [JsonProperty(PropertyName = "uuid")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Uuid;
-
-        [JsonProperty(PropertyName = "submissionUID")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Submission_Uid;
-
-        [JsonProperty(PropertyName = "longId")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Long_Id;
-
-        [JsonProperty(PropertyName = "internalId")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Internal_Id;
-
-        [JsonProperty(PropertyName = "typeName")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Type_Name;
-
-        [JsonProperty(PropertyName = "typeVersionName")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Type_Version_Name;
-
-        [JsonProperty(PropertyName = "issuerTin")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Issuer_Tin;
-
-        [JsonProperty(PropertyName = "issuerName")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Issuer_Name;
-
-        [JsonProperty(PropertyName = "receiverId")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Receiver_Id;
-
-        [JsonProperty(PropertyName = "receiverIdType")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Receiver_Id_Type;
-
-        [JsonProperty(PropertyName = "receiverName")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Receiver_Name;
-
-        [JsonProperty(PropertyName = "dateTimeIssued")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Datetime_Issued;
-
-        [JsonProperty(PropertyName = "dateTimeReceived")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Datetime_Received;
-
-        [JsonProperty(PropertyName = "dateTimeValidated")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Datetime_Validated;
-
-        [JsonProperty(PropertyName = "totalSales")]
-        public double Total_Sales;
-
-        [JsonProperty(PropertyName = "totalDiscount")]
-        public double Total_Discount;
-
-        [JsonProperty(PropertyName = "netAmount")]
-        public double Net_Amt;
-
-        [JsonProperty(PropertyName = "total")]
-        public double Total;
-
-        [JsonProperty(PropertyName = "totalOriginalSales")]
-        public double Total_Ori_Sales;
-
-        [JsonProperty(PropertyName = "totalOriginalDiscount")]
-        public double Total_Ori_Disc;
-
-        [JsonProperty(PropertyName = "netOriginalAmount")]
-        public double Net_Ori_Amt;
-
-        [JsonProperty(PropertyName = "totalOriginal")]
-        public double Total_Ori;
-
-        [JsonProperty(PropertyName = "status")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Status;
-
-        [JsonProperty(PropertyName = "cancelDateTime")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Cancel_Datetime;
-
-        [JsonProperty(PropertyName = "rejectRequestDateTime")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Reject_Req_Datetime;
-
-        [JsonProperty(PropertyName = "documentStatusReason")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string Doc_Status_Reason;
-
-        [JsonProperty(PropertyName = "createdByUserId")]
-        [MarshalAs(UnmanagedType.BStr)]
-        public string CreatedBy_UserId;
-
+        [JsonProperty(PropertyName = "result")]
+        public SearchDocument[] Result;
     }
 
     #endregion
 
     #endregion
+
 }

@@ -14,9 +14,12 @@ using static System.Formats.Asn1.AsnWriter;
 
 namespace LHDN_API.Services
 {
-   
+
     public class Auth0LhdnService
     {
+        #region [ Global ]
+
+        private static readonly HttpClient client;
         public static HttpStatusCode Status;
         public enum enumMethod
         {
@@ -26,33 +29,27 @@ namespace LHDN_API.Services
             DELETE
         }
 
-        #region [ Global ]
-
-        internal static string PerformHTTPRequest(string url, string token, string jsonStr, enumMethod eMethod, string onbehalfof = "")
+        static Auth0LhdnService()
         {
-            Status = 0;
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            ServicePointManager.ServerCertificateValidationCallback +=
-        (sender, certificate, chain, sslPolicyErrors) => true;
-            
+            ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
+
+            // Initialize HttpClient
+            client = new HttpClient();
+        }
+
+        internal static async Task<string> PerformHTTPRequestAsync(string url, string token, string jsonStr, enumMethod eMethod, string onbehalfof = "")
+        {
+
             // HTTP Request Method
-            HttpMethod oMethod = HttpMethod.Get;
-            switch (eMethod)
+            HttpMethod oMethod = eMethod switch
             {
-                case enumMethod.GET:
-                    oMethod = HttpMethod.Get;
-                    break;
-                case enumMethod.POST:
-                    oMethod = HttpMethod.Post;
-                    break;
-                case enumMethod.PUT:
-                    oMethod = HttpMethod.Put;
-                    break;
-                case enumMethod.DELETE:
-                    oMethod = HttpMethod.Delete;
-                    break;
-            }
+                enumMethod.POST => HttpMethod.Post,
+                enumMethod.PUT => HttpMethod.Put,
+                enumMethod.DELETE => HttpMethod.Delete,
+                _ => HttpMethod.Get,
+            };
 
             var reqMsg = new HttpRequestMessage(oMethod, url);
             if (token != string.Empty)
@@ -60,35 +57,28 @@ namespace LHDN_API.Services
                 reqMsg.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
             }
 
-            if (!string.IsNullOrEmpty(onbehalfof))
-            {
-                reqMsg.Headers.Add("onbehalfof", onbehalfof);
-            }
-
-            reqMsg.Headers.Add("Api-key", "");
-            reqMsg.Content = new StringContent(jsonStr, Encoding.UTF8, "application/json");
-
-            var client = new HttpClient();
-            var resMsg = new HttpResponseMessage();
+            reqMsg.Content = !string.IsNullOrEmpty(onbehalfof)
+            ? new FormUrlEncodedContent(JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonStr))
+            : new StringContent(jsonStr, Encoding.UTF8, "application/json");
 
             try
             {
-                resMsg = client.SendAsync(reqMsg).Result;
+                HttpResponseMessage respMsg = await client.SendAsync(reqMsg);
+                string result = await respMsg.Content.ReadAsStringAsync();
+
+                return result;
+
             }
             catch (HttpRequestException ex)
             {
-                Status = HttpStatusCode.NotFound;
+                Console.WriteLine($"Request error: {ex.Message}");
+                throw;
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Unexpected error: {ex.Message}");
                 throw;
             }
-
-            Status = resMsg.StatusCode;
-
-            string result = resMsg.Content.ReadAsStringAsync().Result;
-
-            return result;
 
         }
 
@@ -96,9 +86,8 @@ namespace LHDN_API.Services
 
         #region [ Login Intermediary System ]
 
-        internal static LoginIntermediarySys_RESP LoginIntermediarySys(string url, string ClientId, string clientSecret, string GrantType, string Scope, string OnBehalfOf)
+        internal static async Task<LoginIntermediarySys_RESP> LoginIntermediarySys(string url, string ClientId, string clientSecret, string GrantType, string Scope, string OnBehalfOf)
         {
-            LoginIntermediarySys_RESP resp;
             var loginReq = new LoginIntermediarySys_REQ
             {
                 Client_Id = ClientId,
@@ -109,24 +98,21 @@ namespace LHDN_API.Services
 
             string jsonContent = JsonConvert.SerializeObject(loginReq);
 
-            string result = Auth0LhdnService.PerformHTTPRequest(url, "", jsonContent, enumMethod.POST, OnBehalfOf);
-            resp = JsonConvert.DeserializeObject<LoginIntermediarySys_RESP>(result);
+            string result = await PerformHTTPRequestAsync(url, "", jsonContent, enumMethod.POST, OnBehalfOf);
+            var resp = JsonConvert.DeserializeObject<LoginIntermediarySys_RESP>(result);
 
             return resp;
-
         }
 
         #endregion
 
         #region [ Get All Document Types ]
 
-        internal static GetAllDocTypes_RESP GetAllDocTypes(string url, string token)
+        internal static async Task<GetAllDocTypes_RESP> GetAllDocTypes(string url, string token)
         {
 
-            GetAllDocTypes_RESP resp;
-
-            string result = Auth0LhdnService.PerformHTTPRequest(url, token, "", enumMethod.GET);
-            resp = JsonConvert.DeserializeObject<GetAllDocTypes_RESP>(result);
+            string result = await PerformHTTPRequestAsync(url, token, "", enumMethod.GET);
+            var resp = JsonConvert.DeserializeObject<GetAllDocTypes_RESP>(result);
 
             return resp;
         }
@@ -135,15 +121,13 @@ namespace LHDN_API.Services
 
         #region [ Get Document Type ]
 
-        internal static GetDocType_RESP GetDocType(string url, string token, string sId)
+        internal static async Task<GetDocType_RESP> GetDocType(string url, string token, string sId)
         {
-
-            GetDocType_RESP resp;
 
             url = string.Format(url, sId);
 
-            string result = Auth0LhdnService.PerformHTTPRequest(url, token, "", enumMethod.GET);
-            resp = JsonConvert.DeserializeObject<GetDocType_RESP>(result);
+            string result = await PerformHTTPRequestAsync(url, token, "", enumMethod.GET);
+            var resp = JsonConvert.DeserializeObject<GetDocType_RESP>(result);
 
             return resp;
         }
@@ -152,15 +136,13 @@ namespace LHDN_API.Services
 
         #region [ Get Document Type Version ]
 
-        internal static GetDocTypeVersion_RESP GetDocTypeVersion(string url, string token, string sId, string sVId)
+        internal static async Task<GetDocTypeVersion_RESP> GetDocTypeVersion(string url, string token, string sId, string sVId)
         {
-
-            GetDocTypeVersion_RESP resp;
 
             url = string.Format(url, sId, sVId);
 
-            string result = Auth0LhdnService.PerformHTTPRequest(url, token, "", enumMethod.GET);
-            resp = JsonConvert.DeserializeObject<GetDocTypeVersion_RESP>(result);
+            string result = await PerformHTTPRequestAsync(url, token, "", enumMethod.GET);
+            var resp = JsonConvert.DeserializeObject<GetDocTypeVersion_RESP>(result);
 
             return resp;
         }
@@ -169,11 +151,10 @@ namespace LHDN_API.Services
 
         #region [ Get Notifications ]
 
-        internal static GetNotifications_RESP GetNotifications(string url, string token, string dateFrom, string dateTo, string sType, 
-                                                                string sLanguage, string sStatus, string sChannel, int iPageNo, int iPageSize)
+        internal static async Task<GetNotifications_RESP> GetNotifications(string url, string token, string dateFrom = "", string dateTo = "", string sType = "",
+                                                                string sLanguage = "", string sStatus = "", string sChannel = "", int iPageNo = 0, int iPageSize = 0)
         {
 
-            GetNotifications_RESP resp;
             var notiReq = new GetNotifications_REQ();
             if (dateFrom != string.Empty)
             {
@@ -225,8 +206,8 @@ namespace LHDN_API.Services
 
             url = url + sData;
 
-            string result = Auth0LhdnService.PerformHTTPRequest(url, token, "", enumMethod.GET);
-            resp = JsonConvert.DeserializeObject<GetNotifications_RESP>(result);
+            string result = await PerformHTTPRequestAsync(url, token, "", enumMethod.GET);
+            var resp = JsonConvert.DeserializeObject<GetNotifications_RESP>(result);
 
             return resp;
         }
@@ -235,21 +216,26 @@ namespace LHDN_API.Services
 
         #region [ Validate Taxpayer's TIN ]
 
-        //TODO later
+        internal static async Task<String> ValidateTaxpayerTin(string url, string token, string sTin, string sIdType, string sIdValue)
+        {
+            url = string.Format(url, sTin, sIdType, sIdValue);
+
+            string result = await PerformHTTPRequestAsync(url, token, "", enumMethod.GET);
+
+            return result;
+        }
 
         #endregion
 
         //TODO recheck
         #region [ Submit Document ]
 
-        internal static SubmitDocs_RESP SubmitDocument(string url, string token, string sContentType)
+        internal static async Task<SubmitDocs_RESP> SubmitDocument(string url, string token, string sContentType)
         {
-            SubmitDocs_RESP resp;
-
             url = string.Format(url);
 
-            string result = Auth0LhdnService.PerformHTTPRequest(url, token, "", enumMethod.POST);
-            resp = JsonConvert.DeserializeObject<SubmitDocs_RESP>(result);
+            string result = await PerformHTTPRequestAsync(url, token, "", enumMethod.POST);
+            var resp = JsonConvert.DeserializeObject<SubmitDocs_RESP>(result);
 
             return resp;
         }
@@ -258,21 +244,18 @@ namespace LHDN_API.Services
 
         #region [ Cancel Document ]
 
-        internal static CancelDocs_RESP CancelDocument(string url, string token, string sUuid, string sStatus, string sReason)
+        internal static async Task<CancelDocs_RESP> CancelDocument(string url, string token, string sUuid, string sStatus, string sReason)
         {
-            CancelDocs_RESP resp;
-
             url = string.Format(url, sUuid);
             var oReq = new CancelDocs_REQ
             {
                 Status = sStatus,
                 Reason = sReason
             };
-
             string jsonContent = JsonConvert.SerializeObject(oReq);
 
-            string result = Auth0LhdnService.PerformHTTPRequest(url, token, jsonContent, enumMethod.PUT);
-            resp = JsonConvert.DeserializeObject<CancelDocs_RESP>(result);
+            string result = await PerformHTTPRequestAsync(url, token, jsonContent, enumMethod.PUT);
+            var resp = JsonConvert.DeserializeObject<CancelDocs_RESP>(result);
 
             return resp;
         }
@@ -281,10 +264,8 @@ namespace LHDN_API.Services
 
         #region [ Reject Document ]
 
-        internal static RejectDocs_RESP RejectDocument(string url, string token, string sUuid, string sStatus, string sReason)
+        internal static async Task<RejectDocs_RESP> RejectDocument(string url, string token, string sUuid, string sStatus, string sReason)
         {
-            RejectDocs_RESP resp;
-
             url = string.Format(url, sUuid);
             var oReq = new RejectDocs_REQ
             {
@@ -294,8 +275,8 @@ namespace LHDN_API.Services
 
             string jsonContent = JsonConvert.SerializeObject(oReq);
 
-            string result = Auth0LhdnService.PerformHTTPRequest(url, token, jsonContent, enumMethod.PUT);
-            resp = JsonConvert.DeserializeObject<RejectDocs_RESP>(result);
+            string result = await PerformHTTPRequestAsync(url, token, jsonContent, enumMethod.PUT);
+            var resp = JsonConvert.DeserializeObject<RejectDocs_RESP>(result);
 
             return resp;
         }
@@ -304,12 +285,11 @@ namespace LHDN_API.Services
 
         #region [ Get Recent Documents ]
 
-        internal static GetRecentDocs_RESP GetRecentDocs(string url, string token, int iPageNo, int iPageSize, string submissiondateFrom, string submissiondateTo,
-                                                         string issueDateFrom, string issueDateTo, string sDirection, string sStatus, string sDocumentType, string receiverId, 
-                                                         string receiverIdType, string issuerIdType, string sReceiverTin, string sIssuerTin, string sIssuerId)
+        internal static async Task<GetRecentDocs_RESP> GetRecentDocs(string url, string token, int iPageNo = 0, int iPageSize = 0, string submissiondateFrom = "", string submissiondateTo = "",
+                                                         string issueDateFrom = "", string issueDateTo = "", string sDirection = "", string sStatus = "", string sDocumentType = "", string receiverId = "",
+                                                         string receiverIdType = "", string issuerIdType = "", string sReceiverTin = "", string sIssuerTin = "", string sIssuerId = "")
         {
 
-            GetRecentDocs_RESP resp;
             var req = new GetRecentDocs_REQ();
             if (iPageNo > 0)
             {
@@ -390,8 +370,8 @@ namespace LHDN_API.Services
 
             url = url + sData;
 
-            string result = Auth0LhdnService.PerformHTTPRequest(url, token, "", enumMethod.GET);
-            resp = JsonConvert.DeserializeObject<GetRecentDocs_RESP>(result);
+            string result = await PerformHTTPRequestAsync(url, token, "", enumMethod.GET);
+            var resp = JsonConvert.DeserializeObject<GetRecentDocs_RESP>(result);
 
             return resp;
         }
@@ -400,15 +380,13 @@ namespace LHDN_API.Services
 
         #region [ Get Submission ]
 
-        internal static GetSubmission_RESP GetSubmission(string url, string token, string sSubmissionUid)
+        internal static async Task<GetSubmission_RESP> GetSubmission(string url, string token, string sSubmissionUid)
         {
-
-            GetSubmission_RESP resp;
 
             url = string.Format(url, sSubmissionUid);
 
-            string result = Auth0LhdnService.PerformHTTPRequest(url, token, "", enumMethod.GET);
-            resp = JsonConvert.DeserializeObject<GetSubmission_RESP>(result);
+            string result = await PerformHTTPRequestAsync(url, token, "", enumMethod.GET);
+            var resp = JsonConvert.DeserializeObject<GetSubmission_RESP>(result);
 
             return resp;
         }
@@ -417,15 +395,13 @@ namespace LHDN_API.Services
 
         #region [ Get Document ]
 
-        internal static GetDocument_RESP GetDocument(string url, string token, string sUuid)
+        internal static async Task<GetDocument_RESP> GetDocument(string url, string token, string sUuid)
         {
-
-            GetDocument_RESP resp;
 
             url = string.Format(url, sUuid);
 
-            string result = Auth0LhdnService.PerformHTTPRequest(url, token, "", enumMethod.GET);
-            resp = JsonConvert.DeserializeObject<GetDocument_RESP>(result);
+            string result = await PerformHTTPRequestAsync(url, token, "", enumMethod.GET);
+            var resp = JsonConvert.DeserializeObject<GetDocument_RESP>(result);
 
             return resp;
         }
@@ -434,15 +410,13 @@ namespace LHDN_API.Services
 
         #region [ Get Document Details ]
 
-        internal static GetDocumentDtl_RESP GetDocumentDetails(string url, string token, string sUuid)
+        internal static async Task<GetDocumentDtl_RESP> GetDocumentDetails(string url, string token, string sUuid)
         {
-
-            GetDocumentDtl_RESP resp;
 
             url = string.Format(url, sUuid);
 
-            string result = Auth0LhdnService.PerformHTTPRequest(url, token, "", enumMethod.GET);
-            resp = JsonConvert.DeserializeObject<GetDocumentDtl_RESP>(result);
+            string result = await PerformHTTPRequestAsync(url, token, "", enumMethod.GET);
+            var resp = JsonConvert.DeserializeObject<GetDocumentDtl_RESP>(result);
 
             return resp;
         }
@@ -451,17 +425,16 @@ namespace LHDN_API.Services
 
         #region [ Search Documents ]
 
-        internal static SearchDoc_RESP SearchDocuments(string url, string token, string uuid, string submissiondateFrom, string submissiondateTo, string continuationToken,
-                                                       int iPageSize, string issueDateFrom, string issueDateTo, string sDirection, string sStatus, string sDocumentType, 
-                                                       string receiverId, string receiverIdType, string sIssuerTin)
+        internal static async Task<SearchDoc_RESP> SearchDocuments(string url, string token, string uuid = "", string submissiondateFrom = "", string submissiondateTo = "", string continuationToken = "",
+                                                       int iPageSize = 0, string issueDateFrom = "", string issueDateTo = "", string sDirection = "", string sStatus = "", string sDocumentType = "",
+                                                       string receiverId = "", string receiverIdType = "", string sIssuerTin = "")
         {
 
-            SearchDoc_RESP resp;
             var req = new SearchDoc_REQ();
             if (uuid != string.Empty)
             {
                 req.Uuid = uuid;
-            }            
+            }
             if (submissiondateFrom != string.Empty)
             {
                 req.Submission_DateFrom = submissiondateFrom;
@@ -505,11 +478,11 @@ namespace LHDN_API.Services
             if (receiverIdType != string.Empty)
             {
                 req.Receiver_Id_Type = receiverIdType;
-            }           
+            }
             if (sIssuerTin != string.Empty)
             {
                 req.Issuer_Tin = sIssuerTin;
-            }           
+            }
 
             string sData = string.Empty;
             foreach (var p in req.GetType().GetProperties())
@@ -528,8 +501,8 @@ namespace LHDN_API.Services
 
             url = url + sData;
 
-            string result = Auth0LhdnService.PerformHTTPRequest(url, token, "", enumMethod.GET);
-            resp = JsonConvert.DeserializeObject<SearchDoc_RESP>(result);
+            string result = await PerformHTTPRequestAsync(url, token, "", enumMethod.GET);
+            var resp = JsonConvert.DeserializeObject<SearchDoc_RESP>(result);
 
             return resp;
         }
